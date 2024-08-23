@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:spotify/spotify.dart';
 import 'package:spotify_clone_app/constants/Song.dart';
 
 class MusicSlabData with ChangeNotifier {
