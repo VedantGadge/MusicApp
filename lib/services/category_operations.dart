@@ -17,7 +17,7 @@ class CategoryOperations {
         imageURL:
             'https://i.scdn.co/image/ab67616d0000b273881d8d8378cd01099babcd44',
         desc: '',
-        year: '2023',
+        year: '• 2023',
         showTitle: true,
       ),
       Category(
@@ -49,7 +49,7 @@ class CategoryOperations {
         imageURL:
             'https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452',
         desc: '',
-        year: '2016',
+        year: '• 2016',
         showTitle: true,
       ),
     ];

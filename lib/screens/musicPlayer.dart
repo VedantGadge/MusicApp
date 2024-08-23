@@ -341,7 +341,7 @@ class _MusicplayerState extends State<Musicplayer> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.repeat_rounded,
+                Icons.lyrics_outlined,
               ),
               color: Colors.white,
               onPressed: () {

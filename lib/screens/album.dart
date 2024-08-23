@@ -538,7 +538,7 @@ class _AlbumViewState extends State<AlbumView> {
             ? Padding(
                 padding: const EdgeInsets.only(left: 10, top: 5),
                 child: Text(
-                  widget.showTitle ? 'Album • ${widget.year}' : '',
+                  widget.showTitle ? 'Album ${widget.year}' : '',
                   style: const TextStyle(
                       color: Colors.white60,
                       fontSize: 12,

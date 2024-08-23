@@ -216,6 +216,8 @@ class _HomePageState extends State<HomePage> {
                     false),
                 Song("0WdbnNKO0Jt4BZACSDQh44", "Ghungroo",
                     'Arijit Singh,Shilpa Rao', false),
+                Song("1J9vyEntJ79CppvgUxJs75", "Zaalima",
+                    'Arijit Singh,Harshdeep Kaur', false),
                 Song("6UgcN95w7vQxkR8sEFmwHG", "Chahun Main Ya Naa",
                     'Arijit Singh,Palak Muchhal', false),
                 Song("5cgKosPPj5Cs9a2JQufUc1", "Ilahi", 'Arijit Singh,Pritam',
@@ -420,10 +422,13 @@ class _HomePageState extends State<HomePage> {
                     "Shubh", false),
                 Song("0FBQ4NrrHUbR9kus7rzrOj", "Dil Diyan Gallan", "Atif Aslim",
                     false),
-                Song("3RiPr603aXAoi4GHyXx0uy", "Hymn for the Weekend",
-                    "Coldplay", false),
-                Song("6nek1Nin9q48AVZcWs9e9D", "Paradise", "Coldplay", false),
-                Song("7LVHVU3tWfcxj5aiPFEW4Q", "Fix You", "Coldplay", false),
+                Song("3MVPReTwLNOBFb6KjiIRNM", "Kabhi Jo Badal Barse",
+                    "Arijit Singh", false),
+                Song("3HFjh7QljnUCBLsoTwMuTj", "Kya Mujhe Pyaar Hai", "KK", false),
+                Song("17opN752ZQpNuoptelsNQ1", "Pehli Nazar Main", "Atif Aslam. Pritam", false),
+                Song("52itZ0w0CydihB2JCZEIft", "Pee Loon", "Pritam, Mohit Chuhan", false),
+                Song("1QufGJee7k9v4Cfp2NxXbv", "Abhi Kuch Dino Se", "Pritam , Mohit Chauhan", false),
+                Song("1hQia6rxgfM1ly2hE3StWp", "Ishq Vala Love", "Vishal-Shekhar", false),
               ];
               break;
              */
@@ -628,7 +633,14 @@ class _HomePageState extends State<HomePage> {
               songs = recentSongs;
               break;
             case 1:
-              songs = [Song("url1_for_music_1", "", "", false)];
+              songs = [
+                Song("7yq4Qj7cqayVTp3FF9CWbm", "Riptide", "Vance Joy", false),
+                Song("7e6qTHVfRdaYsio90s1fHC", "Ik Junoon (Paint It Red)",
+                    "Vishal Dadlani", false),
+                Song("4fyR24BKznXBLNkK8LwWla", "Dheere Dheere",
+                    "Yo Yo Honey Singh", false),
+                Song("39bx4zZrPxTjw8VNuvjt6X", "Criminal", "Akon", false),
+              ];
               break;
             case 2:
               songs = [
@@ -795,6 +807,18 @@ class _HomePageState extends State<HomePage> {
                     "Bruno Mars", false),
               ];
               break;
+            case 3:
+              songs = [
+                Song("285pBltuF7vW8TeWk8hdRR", "Lucid Dreams", "Juice WRLD",
+                    true),
+                Song("4VXIryQMWpIdGgYR4TrjT1", "All Girls Are The Same",
+                    "Juice WRLD", true),
+                Song("2Y0wPrPQBrGhoLn14xRYCG", "Come & Go (with Marshmello)",
+                    "Juice WRLD", true),
+                Song("1a7WZZZH7LzyvorhpOJFTe", "Wasted",
+                    "Juice WRLD, Lil Uzi Vert", true),
+              ];
+              break;
             default:
               songs = [Song("default_url1", "", "", false)];
           }
@@ -893,13 +917,63 @@ class _HomePageState extends State<HomePage> {
           List<Song> songs;
           switch (index) {
             case 0:
-              songs = [Song("url1_for_music_0", "", "Jab We Met", false)];
+              songs = [
+                Song("3APdIdF8H0jsxSuGOqXedS", "Kabhi Kabhi Aditi",
+                    "Rashid Ali", false),
+                Song("18YHbIhrleUkKKj2DvEp79", "Zara Sa", "Pritam,KK", false),
+                Song("2UKK9UEbKlykbmLVP1zWIQ", "Haule Haule",
+                    "Salim-Sulaiman, SUkhwinder Singh, Jaideep Saini", false),
+                Song("1EjxJHY9A6LMOlvyZdwDly", "Tum Mile",
+                    "Pritam, Neeraj Shridhar", false),
+                Song("1vBmaijoCBoqmwc3zs5n3s", "Dus Bahane", "Shaan,KK", false),
+                Song("6CCV7FeYgEQ7Ekbes6B36Q", "Bhool Bhulaiyaa",
+                    "Pritam, Neeraj Shridhar", false),
+                Song("2JDsi7S0UmtGoyVPTda0ao", "Prem ki Naiyya",
+                    "Neeraj Shridhar, Suzanne D'Mello, Pritam", false),
+              ];
               break;
             case 1:
-              songs = [Song("url1_for_music_1", "", "", false)];
+              songs = [
+                Song("5cjVsWqIkBQC7acTRhL0RO", "Kamariya",
+                    "Aastha Gill, Sachin Sanghvi, Jigar Saraiya", false),
+                Song(
+                    "16kiQQ4BoLHDyj5W2fkfNK",
+                    "Tauba Tauba (From \"Bad Newz\")",
+                    "Aastha Gill, Sachin Sanghvi, Jigar Saraiya",
+                    false),
+                Song("3BhjbaGeI7E0CiIjctfdD3", "Kar Gayi Chull", "Badshah",
+                    false),
+                Song("54SQet8YMttOgTqDNGcGpe", "Sau Tarah Ke", "Pritam", false),
+                Song("4dJWik0ax9bRFXl0HqbFjT", "High rated Gabru",
+                    "Guru Randhawa", false),
+                Song("5cjVsWqIkBQC7acTRhL0RO", "Kamariya",
+                    "Aastha Gill, Sachin Sanghvi, Jigar Saraiya", false),
+              ];
               break;
             case 2:
-              songs = [Song("url1_for_music_2", "", "", false)];
+              songs = [
+                Song("48Ix6ReYdJf2H4mKb3TIpj", "Tera Hone Laga Hoon",
+                    "Atif Aslam", false),
+                Song("2GXXZFUxYg2LvG8SR0byOE", "Jeena Jeena", "Atif Aslam",
+                    false),
+                Song("0FBQ4NrrHUbR9kus7rzrOj", "Dil Diyan Gallan", "Atif Aslam",
+                    false),
+                Song("2IEhtVeM9TVql8fZdKdlo9", "Main Rang Sharabdon Ka",
+                    "Atif Aslam", false),
+                Song("5llaVhaIoowKT3fqf2NfPO", "Pehli Nazar Main", "Atif Aslam",
+                    false),
+              ];
+              break;
+            case 3:
+              songs = [
+                Song("5d6Mjuu2uCGRPYpFjGpCX5", "Sugar", "Maroon 5", true),
+                Song("3h4T9Bg8OVSUYa6danHeH5", "Animals", "Maroon 5", false),
+                Song("1XGmzt0PVuFgQYYnV2It7A", "Payphone", "Maroon 5", true),
+                Song("1r299qCKBLgUS9XJ9m1kEx", "Moves like Jagger", "Maroon 5",
+                    false),
+                Song("7npLlaPu9Mfno8hjk5OagD", "Girls Like You", "Maroon 5",
+                    true),
+              ];
               break;
             default:
               songs = [Song("default_url1", "", "", false)];

@@ -2,9 +2,9 @@ flutter_native_splash:
   android: true
   ios: true
   color: '#121212'
-  image: 'assets/icons/logoIcon.png'
+  image: 'assets/icons/logo.png'
 
   android_12:
     color: '#121212'
-    image: 'assets/icons/logoIcon.png'
+    image: 'assets/icons/logo.png'
 
