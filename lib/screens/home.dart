@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify_clone_app/constants/Song.dart';
+import 'package:spotify_clone_app/constants/musicSlabData.dart';
 import 'package:spotify_clone_app/constants/pressEffect.dart';
+import 'package:spotify_clone_app/constants/recent_songs.dart';
 import 'package:spotify_clone_app/models/category.dart';
 import 'package:spotify_clone_app/models/musicList.dart';
 import 'package:spotify_clone_app/screens/album.dart';
 import 'package:spotify_clone_app/services/category_operations.dart';
 import 'package:spotify_clone_app/services/musicList_operations1.dart';
 import 'package:spotify_clone_app/services/musicList_operations2.dart';
+import 'package:spotify_clone_app/services/musicList_operations2b.dart';
 import 'package:spotify_clone_app/services/musicList_operations3.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
-class Song {
-  String songUrl;
-  String songName;
-  String songArtists;
-  bool isExplicit;
-
-  Song(this.songUrl, this.songName, this.songArtists, this.isExplicit);
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -31,106 +26,136 @@ class _HomePageState extends State<HomePage> {
   late List<MusicList> musicList1;
   late List<MusicList> musicList2;
   late List<MusicList> musicList3;
+  late List<MusicList> musicList2b;
+  List<Song> recentSongs = [];
+
+  void _updatePlaybackState() async {
+    final recentSongsFromPrefs = await RecentSongsManager().getRecentSongs();
+    // Trigger a rebuild when MusicSlab data state changes
+    setState(() {
+      recentSongs = recentSongsFromPrefs;
+    });
+  }
+
+  Future<void> _loadRecentSongs() async {
+    final recentSongsFromPrefs = await RecentSongsManager().getRecentSongs();
+    setState(() {
+      recentSongs = recentSongsFromPrefs;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     // Initialize your data fetching or any other initialization here
+    MusicSlabData.instance.addListener(_updatePlaybackState);
     categoryList = CategoryOperations.getCategories();
     musicList1 = MusiclistOperations1.getMusic1();
     musicList2 = MusiclistOperations2.getMusic2();
     musicList3 = MusiclistOperations3.getMusic3();
+    musicList2b = MusiclistOperations2b.getMusic2b();
+    _loadRecentSongs();
+  }
+
+  @override
+  void dispose() {
+    MusicSlabData.instance.removeListener(_updatePlaybackState);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          ScrollConfiguration(
-            behavior: NoOverscrollGlowBehavior(),
-            child: SingleChildScrollView(
-              child: SafeArea(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            ScrollConfiguration(
+              behavior: NoOverscrollGlowBehavior(),
+              child: SingleChildScrollView(
+                child: SafeArea(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      color: Color(0xff121212),
+                    ),
+                    child: Column(
+                      children: [
+                        _appBar(), // Custom app bar widget
+                        const SizedBox(height: 5),
+                        createGrid(context), // Grid of categories
+                        const SizedBox(height: 5),
+                        createMusicList2b(context),
+                        const SizedBox(height: 5),
+                        createMusicList1(context), // First list of music
+                        const SizedBox(height: 5),
+                        createMusicList2(context), // Second  list of music
+                        const SizedBox(height: 5),
+                        createMusicList3(context), // Third list of music
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: IgnorePointer(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  decoration: const BoxDecoration(
-                    color: Color(0xff121212),
-                  ),
-                  child: Column(
-                    children: [
-                      _appBar(), // Custom app bar widget
-                      const SizedBox(height: 5),
-                      createGrid(context), // Grid of categories
-                      const SizedBox(height: 5),
-                      createMusicList1(context), // First list of music
-                      const SizedBox(height: 5),
-                      createMusicList2(context), // Second  list of music
-                      const SizedBox(height: 5),
-                      createMusicList3(context), // Third list of music
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: IgnorePointer(
-              child: Container(
-                height: 220,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.black.withOpacity(0.02),
-                      Colors.black.withOpacity(0.05),
-                      Colors.black.withOpacity(0.1),
-                      Colors.black.withOpacity(0.15),
-                      Colors.black.withOpacity(0.2),
-                      Colors.black.withOpacity(0.25),
-                      Colors.black.withOpacity(0.3),
-                      Colors.black.withOpacity(0.35),
-                      Colors.black.withOpacity(0.4),
-                      Colors.black.withOpacity(0.45),
-                      Colors.black.withOpacity(0.5),
-                      Colors.black.withOpacity(0.55),
-                      Colors.black.withOpacity(0.6),
-                      Colors.black.withOpacity(0.65),
-                      Colors.black.withOpacity(0.7),
-                      Colors.black.withOpacity(0.75),
-                      Colors.black.withOpacity(0.8),
-                      Colors.black.withOpacity(0.85),
-                      Colors.black.withOpacity(0.87),
-                      Colors.black.withOpacity(0.9),
-                      Colors.black.withOpacity(0.92),
-                      Colors.black.withOpacity(0.93),
-                      Colors.black.withOpacity(0.94),
-                      Colors.black.withOpacity(0.94),
-                      Colors.black.withOpacity(0.95),
-                      Colors.black.withOpacity(0.96),
-                      Colors.black.withOpacity(0.97),
-                    ],
+                  height: 220,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.02),
+                        Colors.black.withOpacity(0.05),
+                        Colors.black.withOpacity(0.1),
+                        Colors.black.withOpacity(0.15),
+                        Colors.black.withOpacity(0.2),
+                        Colors.black.withOpacity(0.25),
+                        Colors.black.withOpacity(0.3),
+                        Colors.black.withOpacity(0.35),
+                        Colors.black.withOpacity(0.4),
+                        Colors.black.withOpacity(0.45),
+                        Colors.black.withOpacity(0.5),
+                        Colors.black.withOpacity(0.55),
+                        Colors.black.withOpacity(0.6),
+                        Colors.black.withOpacity(0.65),
+                        Colors.black.withOpacity(0.7),
+                        Colors.black.withOpacity(0.75),
+                        Colors.black.withOpacity(0.8),
+                        Colors.black.withOpacity(0.85),
+                        Colors.black.withOpacity(0.87),
+                        Colors.black.withOpacity(0.9),
+                        Colors.black.withOpacity(0.92),
+                        Colors.black.withOpacity(0.93),
+                        Colors.black.withOpacity(0.94),
+                        Colors.black.withOpacity(0.94),
+                        Colors.black.withOpacity(0.95),
+                        Colors.black.withOpacity(0.96),
+                        Colors.black.withOpacity(0.97),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -214,61 +239,62 @@ class _HomePageState extends State<HomePage> {
                     "Travis Scott, Playboi Carti", true),
                 Song("04WxWo7XeVyx22xEsrWRUb", "GOD'S COUNTRY", "Travis Scott",
                     true),
-                Song("url1_for_category_1", "MY EYES", "Travis Scott", true),
-                Song("url1_for_category_1", "HYAENA", "Travis Scott", true),
-                Song("url1_for_category_1", "TOPIA TWINS",
+                Song("4kjI1gwQZRKNDkw1nI475M", "MY EYES", "Travis Scott", true),
+                Song("0hL9gOw6XBWsygEUcVjxEc", "HYAENA", "Travis Scott", true),
+                Song("0lodMO0qK83vfPiiD7FMEt", "TOPIA TWINS",
                     "Travis Scott, Rob49, 21 Savage", true),
-                Song("url1_for_category_1", "CIRCUS MAXIMUS",
+                Song("4GL9GMX9t7Qkprvf1YighZ", "CIRCUS MAXIMUS",
                     "Travis Scott, The Weeknd, Swae Lee", true),
-                Song("url1_for_category_1", "K-POP",
+                Song("5L3ecxQnQ9qTBmnLQiwf0C", "K-POP",
                     "Travis Scott, Bad Bunny, The Weeknd", true),
               ];
               break;
             case 2:
               songs = [
-                Song("url1_for_category_2", "3:59", "DIVINE", true),
-                Song("url1_for_category_2", "Satya", "DIVINE", true),
-                Song("url1_for_category_2", "Punya Paap", "DIVINE", false),
-                Song("url1_for_category_2", "Mirchi",
-                    "DIVINE, MC Altaf, Stylo G, Phenom", false),
-                Song("url1_for_category_2", "Baazigar", "DIVINE, Armani White",
-                    true),
-                Song("url1_for_category_2", "Drill Karte",
+                Song("2gNMXJDKRmKWuevBGjN8wo", "3:59", "DIVINE", true),
+                Song("1xSCr5uIndaHKFdO4s2V6B", "Satya", "DIVINE", true),
+                Song("3zIhQR5cyxpVn8WpEivBCr", "Punya Paap", "DIVINE", false),
+                Song("7zKzD5wM18bQSiJTAxTpwH", "Mirchi",
+                    "DIVINE, MC Altaf, Stylo G", false),
+                Song("1T44wPr7LUlBY4vX6LlygG", "Baazigar",
+                    "DIVINE, Armani White", true),
+                Song("66qAXPAHwLKPLi8Gx58x5z", "Drill Karte",
                     "DIVINE, dutchavelli", false),
-                Song("url1_for_category_2", "Kaam 25 - Sacred Games", "DIVINE",
-                    false),
+                Song("6Kynli1iHBqJRWUCohcV9h", "Kaam 25 - Sacred Games",
+                    "DIVINE", false),
               ];
               break;
             case 3:
               songs = [
-                Song("url1_for_category_3", "Not Like Us", "Kendrick Lamar",
+                Song("6AI3ezQ4o3HUoP6Dhudph3", "Not Like Us", "Kendrick Lamar",
                     true),
-                Song("url1_for_category_3", "family ties",
+                Song("3QFInJAm9eyaho5vBzxInN", "family ties",
                     "Kendrick Lamar, Baby Keem", true),
-                Song("url1_for_category_3", "HUMBLE.", "Kendrick Lamar", true),
-                Song("url1_for_category_3", "Like That",
+                Song("7KXjTSCq5nL1LoYtL7XAwS", "HUMBLE.", "Kendrick Lamar",
+                    true),
+                Song("2tudvzsrR56uom6smgOcSf", "Like That",
                     "Kendrick Lamar, Future, Metro Boomin", true),
-                Song("url1_for_category_3", "Pray For Me",
+                Song("6huNf4dutXRjJyGn7f5BPS", "Pray For Me",
                     "Kendrick Lamar, The Weeknd", true),
-                Song("url1_for_category_3", "Don't Wanna Know",
+                Song("5o3GnrcFtvkdf3zFznuSbA", "Don't Wanna Know",
                     "Kendrick Lamar, Maroon 5", false),
-                Song("url1_for_category_3", "Poetic Justice",
+                Song("3MLOAIJNWWS8FQpvdaiKR7", "Poetic Justice",
                     "Kendrick Lamar, Drake", true),
               ];
               break;
             case 4:
               songs = [
-                Song(
-                    "url1_for_category_4", "Shape Of You", "Ed Sheeran", false),
-                Song("url1_for_category_4", "Perfect", "Ed Sheeran", false),
-                Song("url1_for_category_4", "Eraser", "Ed Sheeran", false),
-                Song("url1_for_category_4", "Happier", "Ed Sheeran", false),
-                Song("url1_for_category_4", "What Do I Know?", "Ed Sheeran",
+                Song("7qiZfU4dY1lWllzX7mPBI3", "Shape Of You", "Ed Sheeran",
                     false),
-                Song("url1_for_category_4", "Let Her Go",
+                Song("0tgVpDi06FyKpA1z0VMD4v", "Perfect", "Ed Sheeran", false),
+                Song("7oolFzHipTMg2nL7shhdz2", "Eraser", "Ed Sheeran", false),
+                Song("2RttW7RAu5nOAfq6YFvApB", "Happier", "Ed Sheeran", false),
+                Song("2pJZ1v8HezrAoZ0Fhzby92", "What Do I Know?", "Ed Sheeran",
+                    false),
+                Song("1nHKI4L5pWrN5CUvW07nHP", "Let Her Go",
                     "Ed Sheeran, Passenger", false),
-                Song("url1_for_category_4", "Castle on the Hill", "Ed Sheeran",
-                    false),
+                Song("6PCUP3dWmTjcTtXY02oFdT", "Castle on the Hill",
+                    "Ed Sheeran", false),
               ];
               break;
             case 5:
@@ -276,14 +302,14 @@ class _HomePageState extends State<HomePage> {
                 Song("7MXVkk9YMctZqd1Srtv4MB", "Starboy", "The Weeknd", false),
                 Song("2Ch7LmS7r2Gy2kc64wv3Bz", "Die For You", "The Weeknd",
                     false),
-                Song("url1_for_category_5", "Rockin'", "The Weeknd", false),
-                Song("url1_for_category_5", "Blinding Lights", "The Weeknd",
+                Song("36YCdzT57us0LhDmCYtrNE", "Rockin'", "The Weeknd", false),
+                Song("0VjIjW4GlUZAMYd2vXMi3b", "Blinding Lights", "The Weeknd",
                     false),
-                Song("url1_for_category_5", "Stargirl Interlude",
+                Song("4EDijkJdHBZZ0GwJ12iTAj", "Stargirl Interlude",
                     "The Weeknd, Lana Del Ray", false),
-                Song("url1_for_category_5", "I Feel It Coming",
+                Song("3dhjNA0jGA8vHBQ1VdD6vV", "I Feel It Coming",
                     "The Weeknd, Daft Punk", false),
-                Song("url1_for_category_5", "Party Monster", "The Weeknd",
+                Song("4F7A0DXBrmUAkp32uenhZt", "Party Monster", "The Weeknd",
                     false),
               ];
               break;
@@ -376,6 +402,221 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget madeFor2b(BuildContext context, MusicList music, int index) {
+    return PressableItem(
+      child: GestureDetector(
+        onTap: () {
+          List<Song> songs;
+          switch (index) {
+            /*
+             case 0:
+              songs = [
+              Song("7F8RNvTQlvbeBLeenycvN6", "Kun Faya Kun", "Javed Ali, Mohit Chauhan", false),
+                Song("7eQl3Yqv35ioqUfveKHitE", "Tum Se Hi",
+                    "Pritam, Mohit Chauhan", false),
+                Song("0pPGUL7171TRGgI6wyP8wP", "Tumhe Jo Maine Dekha", "Abijeet, Shreya Ghoshal",
+                    false),              
+                Song("5ZLkihi6DVsHwDL3B8ym1t", "One Love",
+                    "Shubh", false),
+                Song("0FBQ4NrrHUbR9kus7rzrOj", "Dil Diyan Gallan", "Atif Aslim",
+                    false),
+                Song("3RiPr603aXAoi4GHyXx0uy", "Hymn for the Weekend",
+                    "Coldplay", false),
+                Song("6nek1Nin9q48AVZcWs9e9D", "Paradise", "Coldplay", false),
+                Song("7LVHVU3tWfcxj5aiPFEW4Q", "Fix You", "Coldplay", false),
+              ];
+              break;
+             */
+            case 0:
+              songs = [
+                Song("6RUKPb4LETWmmr3iAEQktW", "Something Just Like This",
+                    "Coldplay, The Chainsmokers", false),
+                Song("1mea3bSkSGXuIRvnydlB5b", "Viva La Vida", "Coldplay",
+                    false),
+                Song("3AJwUDP919kvQ9QcozQPxg", "Yellow", "Coldplay", false),
+                Song("0FDzzruyVECATHXKHFs9eJ", "A Sky Full of Stars",
+                    "Coldplay", false),
+                Song("75JFxkI2RXiU7L9VXzMkle", "The Scientist", "Coldplay",
+                    false),
+                Song("3RiPr603aXAoi4GHyXx0uy", "Hymn for the Weekend",
+                    "Coldplay", false),
+                Song("6nek1Nin9q48AVZcWs9e9D", "Paradise", "Coldplay", false),
+                Song("7LVHVU3tWfcxj5aiPFEW4Q", "Fix You", "Coldplay", false),
+              ];
+              break;
+            case 1:
+              songs = [
+                Song("5SjfjoYaRJ5jycgqwV0ow0", "Scars", "Keenan Te", false),
+                Song("2ap6qvIIBQ5BomjRrBJyer", "Never Let You Go", "Keenan Te",
+                    false),
+                Song("6H9UUMwRcnyhhYLJvSRgI2", "Dependant", "Keenan Te", false),
+                Song("5WJtuMqSdxcbuNvouacT37", "Forget About Us", "Keenan Te",
+                    false),
+                Song("2gZebZcW1mUWoZoJmTE6pr", "Mine", "Keenan Te", false),
+                Song(
+                    "1hH4syeWdhmTv9dAVxUIqp", "Unlearn You", "Keenan Te", false)
+              ];
+
+              break;
+            case 2:
+              songs = [
+                Song("47BBI51FKFwOMlIiX6m8ya", "I Want It That Way",
+                    "Backstreet Boys", false),
+                Song(
+                    "1di1BEgJYzPvXUuinsYJGP",
+                    "Everybody (Backstreet's Back) - Radio Edit",
+                    "Backstreet Boys",
+                    false),
+                Song("3UpS7kBnkVQYG13pDDFTC4", "As Long as You Love Me",
+                    "Backstreet Boys", false),
+                Song("35o9a4iAfLl5jRmqMX9c1D", "Shape of My Heart",
+                    "Backstreet Boys", false),
+                Song(
+                    "0Uqs7ilt5kGX9NzFDWTBrP",
+                    "Quit Playing Games (With My Heart)",
+                    "Backstreet Boys",
+                    false),
+                Song("6sbXGUn9V9ZaLwLdOfpKRE", "Larger Than Life",
+                    "Backstreet Boys", false),
+              ];
+              break;
+            case 3:
+              songs = [
+                Song("1ax8ZuwRVkSdzzsIqyCNWQ", "Tumse Milke Dil Ka",
+                    "Sonu Nigam", false),
+                Song("3WVHfTd7xz9VPYJQFpOp8j", "Main Agar Kahoon",
+                    "Sonu Nigam, Shreya Ghoshal", false),
+                Song("251PNRmJU9KcUnFQAB5t6I", "Kal Ho Naa Ho",
+                    "Sonu Nigam. Shankar-Ehsaan-Loy", false),
+                Song("6cUaCs1lKfDOyFKMkBF8ch", "Dil Dooba",
+                    "Sonu Nigam, Shreya Ghoshal", false),
+                Song("4J5OpeZUR2msDPfMsIeGSU", "Soniyo",
+                    "Sonu Nigam, Raju Singh, Shreya Ghoshal", false),
+                Song("73y649QhnXdcm6fRdvfraO", "Abhi Mujh Mein Kahin",
+                    "Sonu Nigam, Ajay-Atul", false),
+              ];
+              break;
+            case 4:
+              songs = [
+                Song("0TL0LFcwIBF5eX7arDIKxY", "Husn", "Anuv Jain", false),
+                Song(
+                    "3WLJ7D5kh44K5eJ1NqZQ6W", "Baarishein", "Anuv Jain", false),
+                Song("3bQsp4Vr9Rg4fNCx6HPOgX", "Alag Aasmaan", "Anuv Jain",
+                    false),
+                Song("6ivemTXTn27PwVjtd0oqDs", "Gul", "Anuv Jain", false),
+                Song("6P1pBAEUoHwRMToeVoTPrg", "Mishri", "Anuv Jain", false),
+                Song("0uBo93xl23O60oErtKvSAg", "Mazaak", "Anuv Jain", false),
+              ];
+              break;
+            case 5:
+              songs = [
+                Song("4BiPsAV070dg3eLSVf727A", "Ye Ishq Hai", "Shreya Ghoshal",
+                    false),
+                Song("3t3wsY5IdLVzB9WidegJSU", "Jeene Laga Hoon",
+                    "Shreya Ghoshal, Atif Aslam", false),
+                Song("4ZVfIGaZP93t0stmBj4FqA", "Teri Yaadon Mein",
+                    "Shreya Ghoshal, KK", false),
+                Song("0pPGUL7171TRGgI6wyP8wP", "Tumhe Jo Main Dekha",
+                    "Shreya Ghoshal, Abhijeet", false),
+                Song("0fCQRUbk8LIQTdQYGNtGyv", "Tere Liye",
+                    "Shreya Ghoshal, Atif Aslam", false),
+                Song("3H43T5swYywvcdCBFiDgW6", "Manwa Laage",
+                    "Shreya Ghoshal, Arijit Singh", false),
+                Song("5aU0fpmu2sdYJVOHVHCz5s", "Teri Ore", "Shreya Ghoshal",
+                    false),
+                Song("1vSXwYeKnzsVvekSpqVabx", "Chikni Chameli",
+                    "Shreya Ghoshal", false),
+              ];
+              break;
+            default:
+              songs = [Song("", "", "", false)];
+          }
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AlbumView(
+                  title: music.name,
+                  imageUrl: music.imageURL,
+                  songInfo: songs,
+                  desc: music.description,
+                  year: music.year,
+                  showTitle: music.showTitle,
+                ),
+              ));
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(right: 18.0, top: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 180,
+                width: 180,
+                child: CachedNetworkImage(
+                  imageUrl: music.imageURL,
+                  fit: BoxFit.cover,
+                ), // Music cover image
+              ),
+              const SizedBox(height: 10),
+              Text(music.name,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700)), // Music name
+              Container(
+                height: 40,
+                width: 180,
+                child: Flexible(
+                  child: Text(
+                    music.desc,
+                    style: const TextStyle(
+                        color: Colors.white54,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w200),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                ),
+              ), // Music description
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget createMusicList2b(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          alignment: Alignment.topLeft,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: const Text(
+            'Made For You', // Section title
+            style: TextStyle(
+                color: Colors.white, fontSize: 25, fontWeight: FontWeight.w700),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 9),
+          height: 260,
+          child: ScrollConfiguration(
+            behavior:
+                NoOverscrollGlowBehavior(), // Disable overscroll glow effect
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal, // Horizontal scrolling
+              itemBuilder: (ctx, index) {
+                return madeFor2b(
+                    context, musicList2b[index], index); // Create music widgets
+              },
+              itemCount: musicList2b.length, // Number of music items
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   // Create a widget for 'Made For You' music section
   Widget madeForYou(BuildContext context, MusicList music, int index) {
     return PressableItem(
@@ -384,16 +625,28 @@ class _HomePageState extends State<HomePage> {
           List<Song> songs;
           switch (index) {
             case 0:
-              songs = [
-                Song("url1_for_music_0", "Here With Me", "Marshmello, CHVRCHES",
-                    false),
-              ];
+              songs = recentSongs;
               break;
             case 1:
               songs = [Song("url1_for_music_1", "", "", false)];
               break;
             case 2:
-              songs = [Song("url1_for_music_2", "", "", false)];
+              songs = [
+                Song("0k9k2Mr1gR7zeSLiNAqimY", "Alors Brazil", "NONTHENSE",
+                    true),
+                Song(
+                    "24WBge8e53iDTeXOtVB02s", "Eu sento gabu", "PXLWYSE", true),
+                Song("60AVJqYgyAlCckC6Nh2tgO", "X-SLIDE", "2KE, 808iuli", true),
+                Song("67smGwuPEtA6GAfeweAVNO", "SLAY!", "Eternxlkz", true),
+                Song("6qyS9qBy0mEk3qYaH8mPss", "Murder in My Mind", "kordhell",
+                    true),
+                Song("4hcnbu7PdISGGj82ZuDpFQ", "FRESH", "NXVAMANE", false),
+                Song("0hEjvk5rMwLzt9rUcFmZG7", "Sequência da Dz7",
+                    "TRASHXRL, Mc Menor Do Alvorada", true),
+                Song("1A7qPfbcyRVEdcZiwTFhZI", "Memory Reboot", "VØJ", false),
+                Song("7vtGOauV0Zz8Px5EJYm7d7", "life in Rio",
+                    "Slowboy, NEUKICrazy Mano", true),
+              ];
               break;
             default:
               songs = [Song("default_url1", "", "", false)];
@@ -527,18 +780,19 @@ class _HomePageState extends State<HomePage> {
               break;
             case 2:
               songs = [
-                Song("url1_for_music_2", "That's What I Like", "Bruno Mars",
-                    false),
-                Song("url1_for_music_2", "Just the Way You Are", "Bruno Mars",
-                    false),
-                Song("url1_for_music_2", "24K Magic", "Bruno Mars", false),
-                Song("url1_for_music_2", "Uptown Funk",
+                Song("0KKkJNfGyhkQ5aFogxQAPU", "That's What I Like",
+                    "Bruno Mars", false),
+                Song("7BqBn9nzAq8spo5e7cZ0dJ", "Just the Way You Are",
+                    "Bruno Mars", false),
+                Song(
+                    "6b8Be6ljOzmkOmFslEb23P", "24K Magic", "Bruno Mars", false),
+                Song("32OlwWuMpZ6b0aN2RZOeMS", "Uptown Funk",
                     "Bruno Mars,Mark Ronson", true),
-                Song("url1_for_music_2", "Grenade", "Bruno Mars", false),
-                Song("url1_for_music_2", "Leave The Door Open",
+                Song("4lLtanYk6tkMvooU0tWzG8", "Grenade", "Bruno Mars", false),
+                Song("02VBYrHfVwfEWXk5DXyf0T", "Leave The Door Open",
                     "Bruno Mars, Anderson Paak, Silk Sonic", false),
-                Song("url1_for_music_2", "Versace on the Floor", "Bruno Mars",
-                    false),
+                Song("0kN8xEmgMW9mh7UmDYHlJP", "Versace on the Floor",
+                    "Bruno Mars", false),
               ];
               break;
             default:

@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone_app/constants/pressEffect.dart';
 import 'package:spotify_clone_app/models/genres.dart';
 import 'package:spotify_clone_app/screens/album.dart';
-import 'package:spotify_clone_app/screens/app.dart';
 import 'package:spotify_clone_app/services/genre_operations.dart';
 import 'package:spotify_clone_app/screens/genre.dart';
 

@@ -3,28 +3,28 @@ import 'package:just_audio/just_audio.dart';
 import 'package:spotify/spotify.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:spotify_clone_app/constants/Song.dart';
 import 'package:spotify_clone_app/constants/audio_manager.dart';
 import 'package:spotify_clone_app/constants/clientId.dart';
 import 'package:spotify_clone_app/constants/playback_state.dart';
+import 'package:spotify_clone_app/screens/lyricsSection.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:spotify_clone_app/constants/colors.dart';
+import 'package:spotify_clone_app/constants/liked_songs.dart';
 
 class Musicplayer extends StatefulWidget {
   final Color songBgColor;
   final String srcName;
   final String imgUrl;
-  final String songTitle;
-  final String songArtists;
-  final String songTrackId;
-
+  final Song song;
+  final AudioPlayer player;
   const Musicplayer({
     Key? key,
     required this.songBgColor,
     required this.srcName,
     required this.imgUrl,
-    required this.songTitle,
-    required this.songArtists,
-    required this.songTrackId,
+    required this.song,
+    required this.player,
   }) : super(key: key);
 
   @override
@@ -35,11 +35,21 @@ class _MusicplayerState extends State<Musicplayer> {
   final AudioManager _audioManager = AudioManager();
   Duration? duration;
   bool isLoading = true;
+  bool isLiked = false;
+  final LikedSongs _likedSongs =
+      LikedSongs(); // Added state variable for liked status
 
   @override
   void initState() {
     super.initState();
     _initializePlayer();
+    _initializeLikedStatus(); // Initialize the liked status
+    AudioManager.player.playerStateStream.listen((state) {
+      print('Player State: ${state.processingState}');
+      if (state.processingState == ProcessingState.completed) {
+        print('Song completed, playing next song');
+      }
+    });
   }
 
   Future<void> _initializePlayer() async {
@@ -48,7 +58,7 @@ class _MusicplayerState extends State<Musicplayer> {
           CustomStrings.clientId, CustomStrings.clientSecret);
       final spotify = SpotifyApi(credentials);
 
-      final track = await spotify.tracks.get(widget.songTrackId);
+      final track = await spotify.tracks.get(widget.song.songUrl);
       String? tempSongName = track.name;
 
       if (tempSongName == null) {
@@ -56,19 +66,16 @@ class _MusicplayerState extends State<Musicplayer> {
       }
 
       final yt = YoutubeExplode();
-      final searchResults =
-          await yt.search.search("$tempSongName ${widget.songArtists}");
+      final searchResults = await yt.search
+          .search("$tempSongName ${widget.song.songArtists} Lyrics");
       final video = searchResults.elementAt(1);
       duration = video.duration;
       setState(() {
-        _audioManager.player.processingState == ProcessingState.loading ||
-                _audioManager.player.processingState ==
-                    ProcessingState.buffering
+        AudioManager.player.processingState == ProcessingState.loading ||
+                AudioManager.player.processingState == ProcessingState.buffering
             ? isLoading = true
             : isLoading = false;
       });
-      var manifest = await yt.videos.streamsClient.getManifest(video.id.value);
-      var audioUrl = manifest.audioOnly.first.url;
     } catch (e) {
       print("Error initializing player: $e");
       setState(() {
@@ -77,20 +84,16 @@ class _MusicplayerState extends State<Musicplayer> {
     }
   }
 
+  // New method to initialize the liked status
+  Future<void> _initializeLikedStatus() async {
+    final liked = await _likedSongs.containsSong(widget.song);
+    setState(() {
+      isLiked = liked;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return const Scaffold(
-        backgroundColor: Colors.black,
-        body: Center(
-          child: CircularProgressIndicator(
-            color: Color(0xff1DB954),
-            strokeWidth: 4,
-          ),
-        ),
-      );
-    }
-
     return Scaffold(
       backgroundColor: widget.songBgColor,
       body: DraggableScrollableSheet(
@@ -102,10 +105,13 @@ class _MusicplayerState extends State<Musicplayer> {
             controller: scrollController,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 1500,
+              height: 750,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
+                    widget.songBgColor,
+                    widget.songBgColor,
+                    widget.songBgColor,
                     widget.songBgColor,
                     widget.songBgColor,
                     const Color(0xff121212),
@@ -208,14 +214,14 @@ class _MusicplayerState extends State<Musicplayer> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.songTitle,
+              widget.song.songName,
               style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 25,
                   color: Colors.white),
             ),
             Text(
-              widget.songArtists,
+              widget.song.songArtists,
               style: const TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 17,
@@ -224,41 +230,75 @@ class _MusicplayerState extends State<Musicplayer> {
             ),
           ],
         ),
-        const Icon(
-          Icons.favorite,
-          color: customColors.primaryColor,
-        )
+        GestureDetector(
+          onTap: () async {
+            setState(() {
+              if (isLiked) {
+                _likedSongs.removeSong(widget.song);
+              } else {
+                _likedSongs.addSong(widget.song);
+              }
+              isLiked = !isLiked;
+            });
+          },
+          child: Icon(
+            isLiked ? Icons.favorite : Icons.favorite_border,
+            color: customColors.primaryColor,
+          ),
+        ),
       ],
     );
   }
 
   Widget _buildProgressBar() {
-    return StreamBuilder<Duration>(
-      stream: _audioManager.positionStream,
-      builder: (context, snapshot) {
-        final position = snapshot.data ?? Duration.zero;
-        return ProgressBar(
-          progress: position,
-          buffered: const Duration(milliseconds: 2000),
-          total: duration ?? const Duration(minutes: 4),
-          bufferedBarColor: Colors.transparent,
-          baseBarColor: Colors.white10,
-          thumbColor: Colors.white,
-          thumbGlowColor: Colors.transparent,
-          progressBarColor: Colors.white,
-          thumbRadius: 5,
-          timeLabelPadding: 5,
-          timeLabelTextStyle: const TextStyle(
-            color: Colors.white54,
-            fontSize: 13,
-            fontFamily: "Circular",
-            fontWeight: FontWeight.w400,
-          ),
-          onSeek: (newDuration) {
-            _audioManager.player.seek(newDuration);
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        StreamBuilder<Duration>(
+          stream: _audioManager.positionStream,
+          builder: (context, snapshot) {
+            final position = snapshot.data ?? Duration.zero;
+            return ProgressBar(
+              progress: position,
+              buffered: const Duration(milliseconds: 2000),
+              total: duration ?? const Duration(minutes: 4),
+              bufferedBarColor: Colors.transparent,
+              baseBarColor: Colors.white10,
+              thumbColor: Colors.white,
+              thumbGlowColor: Colors.transparent,
+              progressBarColor: Colors.white,
+              thumbRadius: 5,
+              timeLabelPadding: 5,
+              timeLabelTextStyle: const TextStyle(
+                color: Colors.white54,
+                fontSize: 13,
+                fontFamily: "Circular",
+                fontWeight: FontWeight.w400,
+              ),
+              onSeek: (newDuration) {
+                AudioManager.player.seek(newDuration);
+              },
+            );
           },
-        );
-      },
+        ),
+        StreamBuilder<PlayerState>(
+          stream: _audioManager.playerStateStream,
+          builder: (context, snapshot) {
+            final processingState = snapshot.data?.processingState;
+            if (processingState == ProcessingState.loading ||
+                processingState == ProcessingState.buffering) {
+              return Container(
+                height: 2,
+                child: const LinearProgressIndicator(
+                  backgroundColor: Colors.transparent,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white60),
+                ),
+              );
+            }
+            return Container();
+          },
+        ),
+      ],
     );
   }
 
@@ -304,7 +344,17 @@ class _MusicplayerState extends State<Musicplayer> {
                 Icons.repeat_rounded,
               ),
               color: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LyricsPage(
+                        song: widget.song,
+                        player: widget.player,
+                        bgcolor: widget.songBgColor,
+                      ),
+                    ));
+              },
             ),
           ],
         );

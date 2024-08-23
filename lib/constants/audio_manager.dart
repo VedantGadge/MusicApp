@@ -2,7 +2,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:spotify_clone_app/constants/playback_state.dart';
 
 class AudioManager {
-  final AudioPlayer player = AudioPlayer();
+  static final AudioPlayer player = AudioPlayer();
 
   // Singleton pattern
   static final AudioManager _instance = AudioManager._internal();

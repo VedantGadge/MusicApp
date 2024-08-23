@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify_clone_app/constants/musicSlabData.dart';
+import 'package:spotify_clone_app/constants/musicSlabVisibility.dart';
 import 'package:spotify_clone_app/constants/pressEffect.dart';
 import 'package:spotify_clone_app/screens/home.dart';
 import 'package:spotify_clone_app/screens/library.dart';
+import 'package:spotify_clone_app/screens/musicSlab.dart';
 import 'package:spotify_clone_app/screens/search.dart';
 
 class MainApp extends StatefulWidget {
@@ -14,6 +15,22 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   int _selectedIndex = 0;
+  void _updatePlaybackState() {
+    // Trigger a rebuild when MusicSlab data state changes
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    MusicSlabData.instance.addListener(_updatePlaybackState);
+  }
+
+  @override
+  void dispose() {
+    MusicSlabData.instance.removeListener(_updatePlaybackState);
+    super.dispose();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -30,6 +47,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
           Positioned.fill(
@@ -38,9 +56,20 @@ class _MainAppState extends State<MainApp> {
           Positioned(
             left: 0,
             right: 0,
+            bottom: 80,
+            child: ValueListenableBuilder<bool>(
+              valueListenable: globalSlabVisibilityState,
+              builder: (context, isVisible, child) {
+                return Visibility(visible: isVisible, child: MusicSlab());
+              },
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
             bottom: 0,
             child: Container(
-              height: 115,
+              height: 80,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -97,7 +126,7 @@ class _MainAppState extends State<MainApp> {
           Positioned(
             left: 0,
             right: 0,
-            bottom: 20,
+            bottom: 0,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: BottomNavigationBar(
