@@ -410,28 +410,35 @@ class _HomePageState extends State<HomePage> {
         onTap: () {
           List<Song> songs;
           switch (index) {
-            /*
-             case 0:
+            case 0:
               songs = [
-              Song("7F8RNvTQlvbeBLeenycvN6", "Kun Faya Kun", "Javed Ali, Mohit Chauhan", false),
+                Song("7F8RNvTQlvbeBLeenycvN6", "Kun Faya Kun",
+                    "Javed Ali, Mohit Chauhan", false),
                 Song("7eQl3Yqv35ioqUfveKHitE", "Tum Se Hi",
                     "Pritam, Mohit Chauhan", false),
-                Song("0pPGUL7171TRGgI6wyP8wP", "Tumhe Jo Maine Dekha", "Abijeet, Shreya Ghoshal",
-                    false),              
-                Song("5ZLkihi6DVsHwDL3B8ym1t", "One Love",
-                    "Shubh", false),
+                Song("6GQK4G5o60E8YA18DGpAzv", "Hale Dil", "Harshit Saxena",
+                    false),
+                Song("0pPGUL7171TRGgI6wyP8wP", "Tumhe Jo Maine Dekha",
+                    "Abijeet, Shreya Ghoshal", false),
+                Song("5ZLkihi6DVsHwDL3B8ym1t", "One Love", "Shubh", false),
                 Song("0FBQ4NrrHUbR9kus7rzrOj", "Dil Diyan Gallan", "Atif Aslim",
                     false),
                 Song("3MVPReTwLNOBFb6KjiIRNM", "Kabhi Jo Badal Barse",
                     "Arijit Singh", false),
-                Song("3HFjh7QljnUCBLsoTwMuTj", "Kya Mujhe Pyaar Hai", "KK", false),
-                Song("17opN752ZQpNuoptelsNQ1", "Pehli Nazar Main", "Atif Aslam. Pritam", false),
-                Song("52itZ0w0CydihB2JCZEIft", "Pee Loon", "Pritam, Mohit Chuhan", false),
-                Song("1QufGJee7k9v4Cfp2NxXbv", "Abhi Kuch Dino Se", "Pritam , Mohit Chauhan", false),
-                Song("1hQia6rxgfM1ly2hE3StWp", "Ishq Vala Love", "Vishal-Shekhar", false),
+                Song("3HFjh7QljnUCBLsoTwMuTj", "Kya Mujhe Pyaar Hai", "KK",
+                    false),
+                Song("4bD9z9qa4qg9BhryvYWB7c", "Kabira", "Pritam", false),
+                Song("17opN752ZQpNuoptelsNQ1", "Pehli Nazar Main",
+                    "Atif Aslam. Pritam", false),
+                Song("52itZ0w0CydihB2JCZEIft", "Pee Loon",
+                    "Pritam, Mohit Chuhan", false),
+                Song("1QufGJee7k9v4Cfp2NxXbv", "Abhi Kuch Dino Se",
+                    "Pritam , Mohit Chauhan", false),
+                Song("1hQia6rxgfM1ly2hE3StWp", "Ishq Vala Love",
+                    "Vishal-Shekhar", false),
               ];
               break;
-             */
+
             case 0:
               songs = [
                 Song("6RUKPb4LETWmmr3iAEQktW", "Something Just Like This",
@@ -518,15 +525,15 @@ class _HomePageState extends State<HomePage> {
                 Song("4BiPsAV070dg3eLSVf727A", "Ye Ishq Hai", "Shreya Ghoshal",
                     false),
                 Song("3t3wsY5IdLVzB9WidegJSU", "Jeene Laga Hoon",
-                    "Shreya Ghoshal, Atif Aslam", false),
+                    "Shreya Ghoshal", false),
                 Song("4ZVfIGaZP93t0stmBj4FqA", "Teri Yaadon Mein",
-                    "Shreya Ghoshal, KK", false),
+                    "Shreya Ghoshal ", false),
                 Song("0pPGUL7171TRGgI6wyP8wP", "Tumhe Jo Main Dekha",
-                    "Shreya Ghoshal, Abhijeet", false),
-                Song("0fCQRUbk8LIQTdQYGNtGyv", "Tere Liye",
-                    "Shreya Ghoshal, Atif Aslam", false),
-                Song("3H43T5swYywvcdCBFiDgW6", "Manwa Laage",
-                    "Shreya Ghoshal, Arijit Singh", false),
+                    "Shreya Ghoshal", false),
+                Song("0fCQRUbk8LIQTdQYGNtGyv", "Tere Liye", "Shreya Ghoshal",
+                    false),
+                Song("3H43T5swYywvcdCBFiDgW6", "Manwa Laage", "Shreya Ghoshal",
+                    false),
                 Song("5aU0fpmu2sdYJVOHVHCz5s", "Teri Ore", "Shreya Ghoshal",
                     false),
                 Song("1vSXwYeKnzsVvekSpqVabx", "Chikni Chameli",

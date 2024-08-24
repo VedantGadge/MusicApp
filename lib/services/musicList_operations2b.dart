@@ -4,14 +4,13 @@ class MusiclistOperations2b {
   MusiclistOperations2b._() {}
   static List<MusicList> getMusic2b() {
     return <MusicList>[
-      /*MusicList(
+      MusicList(
           'From 2ba...',
           'https://i.imghippo.com/files/ETOuC1724211335.jpg',
           'The essential tracks, all in one playlist.',
           'The essential tracks, all in one playlist.',
           '',
           false),
-      */
       MusicList(
           'Coldplay',
           'https://i.scdn.co/image/ab6761610000e5eb1ba8fc5f5c73e7e9313cc6eb',

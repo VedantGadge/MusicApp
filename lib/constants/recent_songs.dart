@@ -22,8 +22,8 @@ class RecentSongsManager {
     recentSongsJson.insert(0, songJson);
 
     // Keep only the 10 most recent songs
-    if (recentSongsJson.length > 20) {
-      recentSongsJson.removeRange(20, recentSongsJson.length);
+    if (recentSongsJson.length > 10) {
+      recentSongsJson.removeRange(10, recentSongsJson.length);
     }
 
     await prefs.setStringList(_recentSongsKey, recentSongsJson);
