@@ -105,10 +105,11 @@ class _MusicplayerState extends State<Musicplayer> {
             controller: scrollController,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 750,
+              height: 850,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
+                    widget.songBgColor,
                     widget.songBgColor,
                     widget.songBgColor,
                     widget.songBgColor,

@@ -81,15 +81,15 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         _appBar(), // Custom app bar widget
-                        const SizedBox(height: 5),
+                        const SizedBox.shrink(),
                         createGrid(context), // Grid of categories
-                        const SizedBox(height: 5),
+                        const SizedBox.shrink(),
                         createMusicList2b(context),
-                        const SizedBox(height: 5),
+                        const SizedBox.shrink(),
                         createMusicList1(context), // First list of music
-                        const SizedBox(height: 5),
+                        const SizedBox.shrink(),
                         createMusicList2(context), // Second  list of music
-                        const SizedBox(height: 5),
+                        const SizedBox.shrink(),
                         createMusicList3(context), // Third list of music
                       ],
                     ),
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Positioned(
+            /*Positioned(
               left: 0,
               right: 0,
               bottom: 0,
@@ -154,6 +154,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            */
           ],
         ),
       ),
@@ -439,7 +440,7 @@ class _HomePageState extends State<HomePage> {
               ];
               break;
 
-            case 0:
+            case 1:
               songs = [
                 Song("6RUKPb4LETWmmr3iAEQktW", "Something Just Like This",
                     "Coldplay, The Chainsmokers", false),
@@ -456,7 +457,7 @@ class _HomePageState extends State<HomePage> {
                 Song("7LVHVU3tWfcxj5aiPFEW4Q", "Fix You", "Coldplay", false),
               ];
               break;
-            case 1:
+            case 2:
               songs = [
                 Song("5SjfjoYaRJ5jycgqwV0ow0", "Scars", "Keenan Te", false),
                 Song("2ap6qvIIBQ5BomjRrBJyer", "Never Let You Go", "Keenan Te",
@@ -470,7 +471,7 @@ class _HomePageState extends State<HomePage> {
               ];
 
               break;
-            case 2:
+            case 3:
               songs = [
                 Song("47BBI51FKFwOMlIiX6m8ya", "I Want It That Way",
                     "Backstreet Boys", false),
@@ -492,7 +493,7 @@ class _HomePageState extends State<HomePage> {
                     "Backstreet Boys", false),
               ];
               break;
-            case 3:
+            case 4:
               songs = [
                 Song("1ax8ZuwRVkSdzzsIqyCNWQ", "Tumse Milke Dil Ka",
                     "Sonu Nigam", false),
@@ -508,7 +509,7 @@ class _HomePageState extends State<HomePage> {
                     "Sonu Nigam, Ajay-Atul", false),
               ];
               break;
-            case 4:
+            case 5:
               songs = [
                 Song("0TL0LFcwIBF5eX7arDIKxY", "Husn", "Anuv Jain", false),
                 Song(
@@ -520,7 +521,7 @@ class _HomePageState extends State<HomePage> {
                 Song("0uBo93xl23O60oErtKvSAg", "Mazaak", "Anuv Jain", false),
               ];
               break;
-            case 5:
+            case 6:
               songs = [
                 Song("4BiPsAV070dg3eLSVf727A", "Ye Ishq Hai", "Shreya Ghoshal",
                     false),
