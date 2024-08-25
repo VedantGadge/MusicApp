@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 15),
-          child: Container(
+          child: SizedBox(
             height: 27,
             width: 27,
             child: SvgPicture.asset('assets/icons/gear.svg'),
@@ -200,175 +200,180 @@ class _HomePageState extends State<HomePage> {
   Widget createCategory(BuildContext context, Category category, int index) {
     return PressableItem(
       child: GestureDetector(
-        onTap: () {
-          List<Song> songs;
-          switch (index) {
-            case 0:
-              songs = [
-                Song("1YMLgvsQdE27r30q0fsLeV", "Tera Fitoor", 'Arijit Singh',
-                    false),
-                Song("4nc6XiUze2Yh7wFueGOPv7", "Chaleya",
-                    'Arijit Singh,Shilpa Rao', false),
-                Song("3MVPReTwLNOBFb6KjiIRNM", "Kabhi Jo Baadal Barse",
-                    'Arijit Singh', false),
-                Song("4blqlsA1uf2d2I40E90EUC", "Tere Hawale",
-                    'Arijit Singh,Pritam,Shilpa Rao', false),
-                Song("6FjbAnaPRPwiP3sciEYctO", "Raabta", 'Arijit Singh,Pritam',
-                    false),
-                Song("0WdbnNKO0Jt4BZACSDQh44", "Ghungroo",
-                    'Arijit Singh,Shilpa Rao', false),
-                Song("1J9vyEntJ79CppvgUxJs75", "Zaalima",
-                    'Arijit Singh,Harshdeep Kaur', false),
-                Song("6UgcN95w7vQxkR8sEFmwHG", "Chahun Main Ya Naa",
-                    'Arijit Singh,Palak Muchhal', false),
-                Song("5cgKosPPj5Cs9a2JQufUc1", "Ilahi", 'Arijit Singh,Pritam',
-                    false),
-                Song(
-                    "2sryZMs4aLRCLbXiOl69lP",
-                    "Main Rang Sharabton Ka - Reprise",
-                    'Arijit Singh,Pritam',
-                    false),
-                Song("0EZTe2i9yDYsYVO1YNEVZf", "Shaayraana",
-                    'Arijit Singh,Pritam', false),
-                Song("2b2HutIDmoeBnnKRWDLAtV", "Phir Mohabbat",
-                    'Arijit Singh,Mohammed Irfan,Saim Bhat', false),
-                Song("3oNVqllTnz7bHrY3f0nICg", "Phir Bhi Tumko Chaahunga",
-                    'Arijit Singh,Mithoon,Shashaa Tirupati', false),
-              ];
-              break;
-            case 1:
-              songs = [
-                Song("42VsgItocQwOQC3XWZ8JNA", "FE!N",
-                    "Travis Scott, Playboi Carti", true),
-                Song("04WxWo7XeVyx22xEsrWRUb", "GOD'S COUNTRY", "Travis Scott",
-                    true),
-                Song("4kjI1gwQZRKNDkw1nI475M", "MY EYES", "Travis Scott", true),
-                Song("0hL9gOw6XBWsygEUcVjxEc", "HYAENA", "Travis Scott", true),
-                Song("0lodMO0qK83vfPiiD7FMEt", "TOPIA TWINS",
-                    "Travis Scott, Rob49, 21 Savage", true),
-                Song("4GL9GMX9t7Qkprvf1YighZ", "CIRCUS MAXIMUS",
-                    "Travis Scott, The Weeknd, Swae Lee", true),
-                Song("5L3ecxQnQ9qTBmnLQiwf0C", "K-POP",
-                    "Travis Scott, Bad Bunny, The Weeknd", true),
-              ];
-              break;
-            case 2:
-              songs = [
-                Song("2gNMXJDKRmKWuevBGjN8wo", "3:59", "DIVINE", true),
-                Song("1xSCr5uIndaHKFdO4s2V6B", "Satya", "DIVINE", true),
-                Song("3zIhQR5cyxpVn8WpEivBCr", "Punya Paap", "DIVINE", false),
-                Song("7zKzD5wM18bQSiJTAxTpwH", "Mirchi",
-                    "DIVINE, MC Altaf, Stylo G", false),
-                Song("1T44wPr7LUlBY4vX6LlygG", "Baazigar",
-                    "DIVINE, Armani White", true),
-                Song("66qAXPAHwLKPLi8Gx58x5z", "Drill Karte",
-                    "DIVINE, dutchavelli", false),
-                Song("6Kynli1iHBqJRWUCohcV9h", "Kaam 25 - Sacred Games",
-                    "DIVINE", false),
-              ];
-              break;
-            case 3:
-              songs = [
-                Song("6AI3ezQ4o3HUoP6Dhudph3", "Not Like Us", "Kendrick Lamar",
-                    true),
-                Song("3QFInJAm9eyaho5vBzxInN", "family ties",
-                    "Kendrick Lamar, Baby Keem", true),
-                Song("7KXjTSCq5nL1LoYtL7XAwS", "HUMBLE.", "Kendrick Lamar",
-                    true),
-                Song("2tudvzsrR56uom6smgOcSf", "Like That",
-                    "Kendrick Lamar, Future, Metro Boomin", true),
-                Song("6huNf4dutXRjJyGn7f5BPS", "Pray For Me",
-                    "Kendrick Lamar, The Weeknd", true),
-                Song("5o3GnrcFtvkdf3zFznuSbA", "Don't Wanna Know",
-                    "Kendrick Lamar, Maroon 5", false),
-                Song("3MLOAIJNWWS8FQpvdaiKR7", "Poetic Justice",
-                    "Kendrick Lamar, Drake", true),
-              ];
-              break;
-            case 4:
-              songs = [
-                Song("7qiZfU4dY1lWllzX7mPBI3", "Shape Of You", "Ed Sheeran",
-                    false),
-                Song("0tgVpDi06FyKpA1z0VMD4v", "Perfect", "Ed Sheeran", false),
-                Song("7oolFzHipTMg2nL7shhdz2", "Eraser", "Ed Sheeran", false),
-                Song("2RttW7RAu5nOAfq6YFvApB", "Happier", "Ed Sheeran", false),
-                Song("2pJZ1v8HezrAoZ0Fhzby92", "What Do I Know?", "Ed Sheeran",
-                    false),
-                Song("1nHKI4L5pWrN5CUvW07nHP", "Let Her Go",
-                    "Ed Sheeran, Passenger", false),
-                Song("6PCUP3dWmTjcTtXY02oFdT", "Castle on the Hill",
-                    "Ed Sheeran", false),
-              ];
-              break;
-            case 5:
-              songs = [
-                Song("7MXVkk9YMctZqd1Srtv4MB", "Starboy", "The Weeknd", false),
-                Song("2Ch7LmS7r2Gy2kc64wv3Bz", "Die For You", "The Weeknd",
-                    false),
-                Song("36YCdzT57us0LhDmCYtrNE", "Rockin'", "The Weeknd", false),
-                Song("0VjIjW4GlUZAMYd2vXMi3b", "Blinding Lights", "The Weeknd",
-                    false),
-                Song("4EDijkJdHBZZ0GwJ12iTAj", "Stargirl Interlude",
-                    "The Weeknd, Lana Del Ray", false),
-                Song("3dhjNA0jGA8vHBQ1VdD6vV", "I Feel It Coming",
-                    "The Weeknd, Daft Punk", false),
-                Song("4F7A0DXBrmUAkp32uenhZt", "Party Monster", "The Weeknd",
-                    false),
-              ];
-              break;
-            default:
-              songs = [Song("default_url1", "", "", false)];
-          }
+          onTap: () {
+            List<Song> songs;
+            switch (index) {
+              case 0:
+                songs = [
+                  Song("1YMLgvsQdE27r30q0fsLeV", "Tera Fitoor", 'Arijit Singh',
+                      false),
+                  Song("4nc6XiUze2Yh7wFueGOPv7", "Chaleya",
+                      'Arijit Singh,Shilpa Rao', false),
+                  Song("3MVPReTwLNOBFb6KjiIRNM", "Kabhi Jo Baadal Barse",
+                      'Arijit Singh', false),
+                  Song("4blqlsA1uf2d2I40E90EUC", "Tere Hawale",
+                      'Arijit Singh,Pritam,Shilpa Rao', false),
+                  Song("6FjbAnaPRPwiP3sciEYctO", "Raabta",
+                      'Arijit Singh,Pritam', false),
+                  Song("0WdbnNKO0Jt4BZACSDQh44", "Ghungroo",
+                      'Arijit Singh,Shilpa Rao', false),
+                  Song("1J9vyEntJ79CppvgUxJs75", "Zaalima",
+                      'Arijit Singh,Harshdeep Kaur', false),
+                  Song("6UgcN95w7vQxkR8sEFmwHG", "Chahun Main Ya Naa",
+                      'Arijit Singh,Palak Muchhal', false),
+                  Song("5cgKosPPj5Cs9a2JQufUc1", "Ilahi", 'Arijit Singh,Pritam',
+                      false),
+                  Song(
+                      "2sryZMs4aLRCLbXiOl69lP",
+                      "Main Rang Sharabton Ka - Reprise",
+                      'Arijit Singh,Pritam',
+                      false),
+                  Song("0EZTe2i9yDYsYVO1YNEVZf", "Shaayraana",
+                      'Arijit Singh,Pritam', false),
+                  Song("2b2HutIDmoeBnnKRWDLAtV", "Phir Mohabbat",
+                      'Arijit Singh,Mohammed Irfan,Saim Bhat', false),
+                  Song("3oNVqllTnz7bHrY3f0nICg", "Phir Bhi Tumko Chaahunga",
+                      'Arijit Singh,Mithoon,Shashaa Tirupati', false),
+                ];
+                break;
+              case 1:
+                songs = [
+                  Song("42VsgItocQwOQC3XWZ8JNA", "FE!N",
+                      "Travis Scott, Playboi Carti", true),
+                  Song("04WxWo7XeVyx22xEsrWRUb", "GOD'S COUNTRY",
+                      "Travis Scott", true),
+                  Song("4kjI1gwQZRKNDkw1nI475M", "MY EYES", "Travis Scott",
+                      true),
+                  Song(
+                      "0hL9gOw6XBWsygEUcVjxEc", "HYAENA", "Travis Scott", true),
+                  Song("0lodMO0qK83vfPiiD7FMEt", "TOPIA TWINS",
+                      "Travis Scott, Rob49, 21 Savage", true),
+                  Song("4GL9GMX9t7Qkprvf1YighZ", "CIRCUS MAXIMUS",
+                      "Travis Scott, The Weeknd, Swae Lee", true),
+                  Song("5L3ecxQnQ9qTBmnLQiwf0C", "K-POP",
+                      "Travis Scott, Bad Bunny, The Weeknd", true),
+                ];
+                break;
+              case 2:
+                songs = [
+                  Song("2gNMXJDKRmKWuevBGjN8wo", "3:59", "DIVINE", true),
+                  Song("1xSCr5uIndaHKFdO4s2V6B", "Satya", "DIVINE", true),
+                  Song("3zIhQR5cyxpVn8WpEivBCr", "Punya Paap", "DIVINE", false),
+                  Song("7zKzD5wM18bQSiJTAxTpwH", "Mirchi",
+                      "DIVINE, MC Altaf, Stylo G", false),
+                  Song("1T44wPr7LUlBY4vX6LlygG", "Baazigar",
+                      "DIVINE, Armani White", true),
+                  Song("66qAXPAHwLKPLi8Gx58x5z", "Drill Karte",
+                      "DIVINE, dutchavelli", false),
+                  Song("6Kynli1iHBqJRWUCohcV9h", "Kaam 25 - Sacred Games",
+                      "DIVINE", false),
+                ];
+                break;
+              case 3:
+                songs = [
+                  Song("6AI3ezQ4o3HUoP6Dhudph3", "Not Like Us",
+                      "Kendrick Lamar", true),
+                  Song("3QFInJAm9eyaho5vBzxInN", "family ties",
+                      "Kendrick Lamar, Baby Keem", true),
+                  Song("7KXjTSCq5nL1LoYtL7XAwS", "HUMBLE.", "Kendrick Lamar",
+                      true),
+                  Song("2tudvzsrR56uom6smgOcSf", "Like That",
+                      "Kendrick Lamar, Future, Metro Boomin", true),
+                  Song("6huNf4dutXRjJyGn7f5BPS", "Pray For Me",
+                      "Kendrick Lamar, The Weeknd", true),
+                  Song("5o3GnrcFtvkdf3zFznuSbA", "Don't Wanna Know",
+                      "Kendrick Lamar, Maroon 5", false),
+                  Song("3MLOAIJNWWS8FQpvdaiKR7", "Poetic Justice",
+                      "Kendrick Lamar, Drake", true),
+                ];
+                break;
+              case 4:
+                songs = [
+                  Song("7qiZfU4dY1lWllzX7mPBI3", "Shape Of You", "Ed Sheeran",
+                      false),
+                  Song(
+                      "0tgVpDi06FyKpA1z0VMD4v", "Perfect", "Ed Sheeran", false),
+                  Song("7oolFzHipTMg2nL7shhdz2", "Eraser", "Ed Sheeran", false),
+                  Song(
+                      "2RttW7RAu5nOAfq6YFvApB", "Happier", "Ed Sheeran", false),
+                  Song("2pJZ1v8HezrAoZ0Fhzby92", "What Do I Know?",
+                      "Ed Sheeran", false),
+                  Song("1nHKI4L5pWrN5CUvW07nHP", "Let Her Go",
+                      "Ed Sheeran, Passenger", false),
+                  Song("6PCUP3dWmTjcTtXY02oFdT", "Castle on the Hill",
+                      "Ed Sheeran", false),
+                ];
+                break;
+              case 5:
+                songs = [
+                  Song(
+                      "7MXVkk9YMctZqd1Srtv4MB", "Starboy", "The Weeknd", false),
+                  Song("2Ch7LmS7r2Gy2kc64wv3Bz", "Die For You", "The Weeknd",
+                      false),
+                  Song(
+                      "36YCdzT57us0LhDmCYtrNE", "Rockin'", "The Weeknd", false),
+                  Song("0VjIjW4GlUZAMYd2vXMi3b", "Blinding Lights",
+                      "The Weeknd", false),
+                  Song("4EDijkJdHBZZ0GwJ12iTAj", "Stargirl Interlude",
+                      "The Weeknd, Lana Del Ray", false),
+                  Song("3dhjNA0jGA8vHBQ1VdD6vV", "I Feel It Coming",
+                      "The Weeknd, Daft Punk", false),
+                  Song("4F7A0DXBrmUAkp32uenhZt", "Party Monster", "The Weeknd",
+                      false),
+                ];
+                break;
+              default:
+                songs = [Song("default_url1", "", "", false)];
+            }
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AlbumView(
-                title: category.name,
-                imageUrl: category.imageURL,
-                songInfo: songs,
-                desc: category.desc,
-                year: category.year,
-                showTitle: category.showTitle,
-              ),
-            ),
-          );
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xff2a2a2a),
-            borderRadius: BorderRadius.circular(4), // Rounded corners
-          ),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius:
-                    const BorderRadius.horizontal(left: Radius.circular(3)),
-                child: CachedNetworkImage(
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AlbumView(
+                  title: category.name,
                   imageUrl: category.imageURL,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => const SizedBox(width: 58.5),
-                ), // Category image
-              ),
-              const SizedBox(width: 7),
-              Flexible(
-                //The Flexible widget is used here to make sure the text wraps within the available space.
-                child: Text(
-                  category.name, // Category name
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  overflow:
-                      TextOverflow.ellipsis, // Ellipsis if text is too long
-                  maxLines: 2, // Allow text to wrap to the next line
+                  songInfo: songs,
+                  desc: category.desc,
+                  year: category.year,
+                  showTitle: category.showTitle,
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff2a2a2a),
+              borderRadius: BorderRadius.circular(4), // Rounded corners
+            ),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius:
+                      const BorderRadius.horizontal(left: Radius.circular(3)),
+                  child: CachedNetworkImage(
+                    imageUrl: category.imageURL,
+                    fit: BoxFit.cover, // Ensure image covers the area
+                    width: 58.5, // Set width for the image
+                    height: 58.5, // Set height for the image
+                  ),
+                ),
+                const SizedBox(width: 7),
+                Flexible(
+                  child: Text(
+                    category.name, // Category name
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    overflow:
+                        TextOverflow.ellipsis, // Ellipsis if text is too long
+                    maxLines: 2, // Allow text to wrap to the next line
+                  ),
+                ),
+              ],
+            ),
+          )),
     );
   }
 
@@ -390,7 +395,7 @@ class _HomePageState extends State<HomePage> {
   Widget createGrid(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 9.0),
-      child: Container(
+      child: SizedBox(
         height: 200,
         width: 380,
         child: GridView.count(
@@ -563,7 +568,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 180,
                 width: 180,
                 child: CachedNetworkImage(
@@ -576,10 +581,10 @@ class _HomePageState extends State<HomePage> {
                   style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w700)), // Music name
-              Container(
-                height: 40,
-                width: 180,
-                child: Flexible(
+              Flexible(
+                child: SizedBox(
+                  height: 40,
+                  width: 180,
                   child: Text(
                     music.desc,
                     style: const TextStyle(
@@ -613,17 +618,13 @@ class _HomePageState extends State<HomePage> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 9),
           height: 260,
-          child: ScrollConfiguration(
-            behavior:
-                NoOverscrollGlowBehavior(), // Disable overscroll glow effect
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal, // Horizontal scrolling
-              itemBuilder: (ctx, index) {
-                return madeFor2b(
-                    context, musicList2b[index], index); // Create music widgets
-              },
-              itemCount: musicList2b.length, // Number of music items
-            ),
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal, // Horizontal scrolling
+            itemBuilder: (ctx, index) {
+              return madeFor2b(
+                  context, musicList2b[index], index); // Create music widgets
+            },
+            itemCount: musicList2b.length, // Number of music items
           ),
         ),
       ],
@@ -690,7 +691,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 180,
                 width: 180,
                 child: CachedNetworkImage(
@@ -703,10 +704,10 @@ class _HomePageState extends State<HomePage> {
                   style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w700)), // Music name
-              Container(
-                height: 40,
-                width: 180,
-                child: Flexible(
+              Flexible(
+                child: SizedBox(
+                  height: 40,
+                  width: 180,
                   child: Text(
                     music.desc,
                     style: const TextStyle(
@@ -849,7 +850,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 180,
                 width: 180,
                 child: CachedNetworkImage(
@@ -862,10 +863,10 @@ class _HomePageState extends State<HomePage> {
                   style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w700)), // Music name
-              Container(
-                height: 40,
-                width: 180,
-                child: Flexible(
+              Flexible(
+                child: SizedBox(
+                  height: 40,
+                  width: 180,
                   child: Text(
                     music.desc,
                     style: const TextStyle(
@@ -1005,7 +1006,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 180,
                 width: 180,
                 child: CachedNetworkImage(
@@ -1018,10 +1019,10 @@ class _HomePageState extends State<HomePage> {
                   style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w700)), // Music name
-              Container(
-                height: 40,
-                width: 180,
-                child: Flexible(
+              Flexible(
+                child: SizedBox(
+                  height: 40,
+                  width: 180,
                   child: Text(
                     music.desc,
                     style: const TextStyle(
