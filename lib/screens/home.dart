@@ -422,6 +422,11 @@ class _HomePageState extends State<HomePage> {
                     "Javed Ali, Mohit Chauhan", false),
                 Song("7eQl3Yqv35ioqUfveKHitE", "Tum Se Hi",
                     "Pritam, Mohit Chauhan", false),
+                    Song("48Ix6ReYdJf2H4mKb3TIpj", "Tera Hone Laga Hoon",
+                    "Atif Aslam", false),
+                    Song("4bD9z9qa4qg9BhryvYWB7c", "Kabira", "Pritam", false),
+                    Song("17opN752ZQpNuoptelsNQ1", "Pehli Nazar Main",
+                    "Atif Aslam. Pritam", false),
                 Song("6GQK4G5o60E8YA18DGpAzv", "Hale Dil", "Harshit Saxena",
                     false),
                 Song("0pPGUL7171TRGgI6wyP8wP", "Tumhe Jo Maine Dekha",
@@ -433,9 +438,8 @@ class _HomePageState extends State<HomePage> {
                     "Arijit Singh", false),
                 Song("3HFjh7QljnUCBLsoTwMuTj", "Kya Mujhe Pyaar Hai", "KK",
                     false),
-                Song("4bD9z9qa4qg9BhryvYWB7c", "Kabira", "Pritam", false),
-                Song("17opN752ZQpNuoptelsNQ1", "Pehli Nazar Main",
-                    "Atif Aslam. Pritam", false),
+                
+                
                 Song("52itZ0w0CydihB2JCZEIft", "Pee Loon",
                     "Pritam, Mohit Chuhan", false),
                 Song("1QufGJee7k9v4Cfp2NxXbv", "Abhi Kuch Dino Se",
