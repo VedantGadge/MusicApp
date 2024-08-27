@@ -5,10 +5,10 @@ class MusiclistOperations2b {
   static List<MusicList> getMusic2b() {
     return <MusicList>[
       MusicList(
-          'From 2ba...',
-          'https://i.imghippo.com/files/ETOuC1724211335.jpg',
-          'The essential tracks, all in one playlist.',
-          'The essential tracks, all in one playlist.',
+          'For 2byy..💗',
+          'https://i.imghippo.com/files/UjTFJ1724613271.jpg',
+          'Sweet tunes for special someone.💗',
+          'Sweet tunes for special someone.',
           '',
           false),
       MusicList(
