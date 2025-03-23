@@ -1,11 +1,17 @@
-## Music Streaming App
+# 🎵 Music Streaming App  
 
-- Developed a music streaming application using Flutter, replicating core Spotify functionalities.  
+A **dynamic and user-friendly** music streaming application built using **Flutter**. Designed with a sleek UI, seamless navigation, and real-time audio playback.  
 
-- Designed and implemented a user-friendly interface with a focus on intuitive navigation.  
+## 🚀 Features  
+- 🎧 **Music Playback** – Stream songs with smooth controls.  
+- 🔍 **Dynamic UI** – Intuitive navigation with an elegant design.  
+- 📡 **API Integration** – Fetch music data and album covers.  
+- 🎨 **Theme Adaptation** – Background adapts to album artwork.  
+- ⚡ **Optimized Performance** – Fast loading and responsive animations.  
 
-- Integrated external APIs and packages for audio playback, music data retrieval, and image display.  
-
-- Leveraged third-party libraries to enhance user experience and streamline development.  
-
+## 🛠 Tech Stack  
+- **Frontend:** Flutter, Dart  
+- **Audio Playback:** just_audio package  
+- **State Management:** Provider  
+- **Networking:** HTTP, API integration  
 
